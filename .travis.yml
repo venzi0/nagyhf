@@ -1,0 +1,7 @@
+language: java
+jdk:
+  - oraclejdk8
+notifications:
+  slack: ftsrg:ecvIo6H1l9zFO7qSwf3Juz3U
+  on_success: change
+  on_failure: always

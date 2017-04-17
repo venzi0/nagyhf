@@ -1,0 +1,47 @@
+allprojects {
+  group = 'neo4j-drivers'
+  version = '0.0.4-SNAPSHOT'
+}
+
+ext {
+  guavaVersion = '21.0'
+  junitVersion = '4.12'
+  neo4jDriverVersion = '1.3.0-alpha01'
+  neo4jVersion = '3.1.1'
+}
+
+subprojects {
+  apply plugin: 'java'
+  apply plugin: 'maven'
+  apply plugin: 'maven-publish'
+
+  jar { from sourceSets.main.allJava }
+
+  sourceCompatibility = 1.8
+  targetCompatibility = 1.8
+
+  repositories {
+    mavenLocal()
+    jcenter()
+  }
+
+  configurations.all { exclude group: 'asm' }
+
+  publishing {
+    publications {
+      mavenJava(MavenPublication) { from components.java }
+    }
+  }
+
+  uploadArchives {
+  	repositories {
+  		mavenDeployer {
+  			repository(url: 'file:///tmp/mvn_repo')
+  		}
+  	}
+  }
+
+  dependencies {
+    testCompile group: 'junit', name: 'junit', version: junitVersion
+  }
+}
